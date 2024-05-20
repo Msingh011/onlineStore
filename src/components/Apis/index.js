@@ -2,6 +2,7 @@
 //Home Product List
  export const Products = {
     getProducts : "https://dummyjson.com/products?limit=",
+    getProductByCategory: "https://dummyjson.com/products/category/"
 }
 
 export const SingleProduct = {

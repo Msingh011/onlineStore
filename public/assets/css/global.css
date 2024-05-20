@@ -168,6 +168,14 @@ nav.horizontal ul li {
 img {
     max-width: 100%;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+.display-block {
+    display: block;
+}
+    
 /*end reset*/
 body {
     background: #f9f9f9;
@@ -327,7 +335,7 @@ body {
 }
 .product-area {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 24px;
 }
 .images_1_of_3 h3 {
@@ -513,7 +521,6 @@ body {
 }
 /*-----content-grids----*/
 .content-grids {
-    width: 80%;
     float: left;
 }
 /*----sidebar----*/

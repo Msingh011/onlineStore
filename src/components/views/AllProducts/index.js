@@ -7,27 +7,41 @@ import { Select } from "antd";
 
 export default function AllProducts() {
   const [productList, setProductList] = useState();
-  console.log("product List", ProductCategory);
+
+  const [productCategory, setProductCategory] = useState();
+
+  //console.log("product List", ProductCategory);
+
+  //Filter
+  const [categoriesFilter, setCategoryFilter] = useState();
+
+  const handleSelectCataegory = (categories) => {
+    productsByCategory(categories)
+    console.log("Filter categories", categories)
+   }
 
 
+
+  //Sorting
   const handleChange = (value) => {
     const tempArray = [...productList];
-    
     if (value === "a-to-z") {
-      tempArray.sort((element1, element2) => element1.title.localeCompare(element2.title));
+      tempArray.sort((element1, element2) =>
+        element1.title.localeCompare(element2.title)
+      );
       setProductList(tempArray);
     } else if (value === "z-to-a") {
-      tempArray.sort((element1, element2) => element1.title.localeCompare(element2.title));
+      tempArray.sort((element1, element2) =>
+        element1.title.localeCompare(element2.title)
+      );
       tempArray.reverse();
       setProductList(tempArray);
-    }
-    else if (value === "low-to-high"){
-        tempArray.sort((element1, element2) => element1.price - element2.price);
-        setProductList(tempArray);
-    }
-    else {
-        tempArray.sort((element1, element2) => element2.price - element1.price);
-        setProductList(tempArray);
+    } else if (value === "low-to-high") {
+      tempArray.sort((element1, element2) => element1.price - element2.price);
+      setProductList(tempArray);
+    } else {
+      tempArray.sort((element1, element2) => element2.price - element1.price);
+      setProductList(tempArray);
     }
   };
 
@@ -39,8 +53,25 @@ export default function AllProducts() {
       });
   };
 
+  const productsByCategory = (category) => {
+    fetch(Products.getProductByCategory + category)
+      .then((response) => response.json())
+      .then((json) => {
+        setProductList(json.products);
+      });
+  };
+
+  const productsCategory = () => {
+    fetch(ProductCategory.getProductsCategory)
+      .then((response) => response.json())
+      .then((json) => {
+        setProductCategory(json);
+      });
+  };
+
   useEffect(() => {
     products([0]);
+    productsCategory();
   }, []);
 
   return (
@@ -55,7 +86,20 @@ export default function AllProducts() {
         <div className="flex my-10">
           <div className="content-sidebar w-2/12">
             <h4>Categories</h4>
-            <AllCategory />
+          <p className="capitalize font-medium tracking-wide cursor-pointer" onClick={() => products([0])}>All</p>
+              {productCategory?.length &&
+                productCategory.sort().map((categories) => {
+                  return (
+                    <p key={categories} onClick={() => 
+                    {
+                      handleSelectCataegory(categories);
+                    }
+                    } className="capitalize font-medium tracking-wide cursor-pointer">
+                        {categories}
+                    </p>
+                  );
+                })}
+           
           </div>
 
           <div className="w-10/12">
@@ -99,7 +143,7 @@ export default function AllProducts() {
               {productList &&
                 productList?.map((index) => {
                   const productId = index?.id;
-                  console.log("productId", index);
+                  //console.log("productId", index);
                   return (
                     <div className="grid_1_of_3 images_1_of_3">
                       <Link to={`/singleProductPage/${productId}`}>
