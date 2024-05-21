@@ -22,7 +22,7 @@ export default function Header() {
 					<div className="header-top-nav">
 						<ul className="m-0">
 							{topMenu.map((val) => {
-								return <li><a href={'/' + val}>{val.toUpperCase()}</a></li>
+								return <li key={val} ><a href={'/' + val}>{val.toUpperCase()}</a></li>
 							})}
 						</ul>
 					</div>
@@ -41,7 +41,7 @@ export default function Header() {
 					<div className="top-nav">
 						<ul className="m-0">
 							{mainMenu.map((val) => {
-								return <li><a href={'/' + val}>{val}</a></li>
+								return <li key={val}><a href={'/' + val}>{val}</a></li>
 							})}
 						</ul>
 					</div>

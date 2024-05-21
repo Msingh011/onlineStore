@@ -2,25 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Products } from "../../Apis";
 import { Link } from "react-router-dom";
 import { ProductCategory } from "../../Apis";
-import AllCategory from "../../Category";
+import ReactPaginate from "react-paginate";
 import { Select } from "antd";
 
 export default function AllProducts() {
   const [productList, setProductList] = useState();
-
   const [productCategory, setProductCategory] = useState();
 
   //console.log("product List", ProductCategory);
 
-  //Filter
-  const [categoriesFilter, setCategoryFilter] = useState();
-
   const handleSelectCataegory = (categories) => {
-    productsByCategory(categories)
-    console.log("Filter categories", categories)
-   }
-
-
+    productsByCategory(categories);
+    //console.log("Filter categories", categories)
+  };
 
   //Sorting
   const handleChange = (value) => {
@@ -74,6 +68,29 @@ export default function AllProducts() {
     productsCategory();
   }, []);
 
+  {/*begin:: Pagination Code*/}
+    const [currentItems, setCurrentItems] = useState(null);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    const itemsPerPage = 10;
+    useEffect(() => { 
+      // Fetch items from another resources.
+      const endOffset = itemOffset + itemsPerPage;
+      
+      if(productList){
+        setCurrentItems(productList.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(productList.length / itemsPerPage));
+      }
+    }, [itemOffset, itemsPerPage, productList]);
+
+    // Invoke when user click to request another page.
+    const handlePageClick = (event) => {
+      const newOffset = (event.selected * itemsPerPage) % productList.length;
+     
+      setItemOffset(newOffset);
+    };
+  {/*end:: Pagination Code*/}
+
   return (
     <>
       <div className="banner h-52 bg-gray-200 flex items-center justify-center">
@@ -86,23 +103,51 @@ export default function AllProducts() {
         <div className="flex my-10">
           <div className="content-sidebar w-2/12">
             <h4>Categories</h4>
-          <p className="capitalize font-medium tracking-wide cursor-pointer" onClick={() => products([0])}>All</p>
-              {productCategory?.length &&
-                productCategory.sort().map((categories) => {
-                  return (
-                    <p key={categories} onClick={() => 
-                    {
+            <p
+              className="capitalize font-medium tracking-wide cursor-pointer"
+              onClick={() => products([0])}
+            >
+              All
+            </p>
+            {productCategory?.length &&
+              productCategory.sort().map((categories) => {
+                return (
+                  <p
+                    key={categories}
+                    onClick={() => {
                       handleSelectCataegory(categories);
-                    }
-                    } className="capitalize font-medium tracking-wide cursor-pointer">
-                        {categories}
-                    </p>
-                  );
-                })}
-           
+                    }}
+                    className="capitalize font-medium tracking-wide cursor-pointer"
+                  >
+                    {categories}
+                  </p>
+                );
+              })}
           </div>
 
           <div className="w-10/12">
+            
+            <ReactPaginate
+              nextLabel="next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={pageCount}
+              previousLabel="< previous"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              breakLabel="..."
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+            />
+
             <div className="Sorting mb-5">
               <div className="flex">
                 <div className="d-flex">
@@ -140,12 +185,12 @@ export default function AllProducts() {
             </div>
 
             <div className="product-area">
-              {productList &&
-                productList?.map((index) => {
+              {currentItems &&
+                currentItems?.map((index) => {
                   const productId = index?.id;
                   //console.log("productId", index);
                   return (
-                    <div className="grid_1_of_3 images_1_of_3">
+                    <div className="grid_1_of_3 images_1_of_3" key={productId} >
                       <Link to={`/singleProductPage/${productId}`}>
                         <img src={index?.images[0]} />
                         <div className="grid_1_of_3_details h-auto p-0">
