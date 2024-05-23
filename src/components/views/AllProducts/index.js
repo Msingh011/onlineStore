@@ -72,7 +72,7 @@ export default function AllProducts() {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     useEffect(() => { 
       // Fetch items from another resources.
       const endOffset = itemOffset + itemsPerPage;
@@ -126,29 +126,7 @@ export default function AllProducts() {
           </div>
 
           <div className="w-10/12">
-            
-            <ReactPaginate
-              nextLabel="next >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={3}
-              marginPagesDisplayed={2}
-              pageCount={pageCount}
-              previousLabel="< previous"
-              pageClassName="page-item"
-              pageLinkClassName="page-link"
-              previousClassName="page-item"
-              previousLinkClassName="page-link"
-              nextClassName="page-item"
-              nextLinkClassName="page-link"
-              breakLabel="..."
-              breakClassName="page-item"
-              breakLinkClassName="page-link"
-              containerClassName="pagination"
-              activeClassName="active"
-              renderOnZeroPageCount={null}
-            />
-
-            <div className="Sorting mb-5">
+            <div className="Sorting mb-2">
               <div className="flex">
                 <div className="d-flex">
                   <span className="mr-2">Price</span>
@@ -184,7 +162,11 @@ export default function AllProducts() {
               </div>
             </div>
 
-            <div className="product-area">
+            <div className="product-area mb-3">
+
+         
+
+
               {currentItems &&
                 currentItems?.map((index) => {
                   const productId = index?.id;
@@ -203,6 +185,31 @@ export default function AllProducts() {
                   );
                 })}
             </div>
+
+            {productList?.length >= 12 && 
+
+            <ReactPaginate
+              nextLabel="next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={3}
+              marginPagesDisplayed={2}
+              pageCount={pageCount}
+              previousLabel="< previous"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              breakLabel="..."
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+            />
+          }
+
           </div>
         </div>
       </div>

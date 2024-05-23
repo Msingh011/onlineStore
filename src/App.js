@@ -15,14 +15,13 @@ function App() {
     <BrowserRouter>
       <Header />
       <div className="app-container">
-
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/Home' element={<Home />}></Route>
           {/* <Route path='/store' element={<Store />}></Route> */}
           <Route path='/allProducts' element={<AllProducts/>}></Route>
           <Route path='/contact' element={<Contact />}></Route>
-          <Route path='/singleProductPage/:id' element={<SingleProductPage/>}></Route>
+          <Route path='/singleProductPage/:id/:title' element={<SingleProductPage/>}></Route>
         </Routes>
       </div>
       <Footer />

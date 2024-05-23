@@ -6,15 +6,10 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const contentStyle = {
-  width: "100%",
-  height: "100%",
-};
 
 export default function Home() {
 
   const [productList, setProductList] = useState();
-
   console.log("productList1", productList );
 
   const products = (limit) => {
@@ -25,6 +20,18 @@ export default function Home() {
       });
   };
 
+  // const formatTitle  = (title) => {
+  //   return title.trim().replace(/\s+/g, '-');
+  // }
+
+
+  const formatTitle = (title) => {
+    if (!title) return '';
+    return title.trim().replace(/\s+/g, '-');
+  }
+
+
+  
   useEffect(() => {
     products(50);
   }, []);
@@ -57,8 +64,9 @@ export default function Home() {
                       return (
                         <div className="grid_1_of_3 images_1_of_3">
                           <Link
-                            to={`/singleProductPage/${productId}`}
+                            to={`/singleProductPage/${productId}/${formatTitle(data.title)}`}
                           >
+                            
                             <img src={data?.images[0]} />
                             <div className="grid_1_of_3_details h-auto p-0">
                             <h3>{data?.title}</h3>
