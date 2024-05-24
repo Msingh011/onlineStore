@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 export default function Home() {
 
   const [productList, setProductList] = useState();
-  console.log("productList1", productList );
+
+  console.log("ProductList",productList );
 
   const products = (limit) => {
     fetch(Products.getProducts + limit)
@@ -20,18 +21,11 @@ export default function Home() {
       });
   };
 
-  // const formatTitle  = (title) => {
-  //   return title.trim().replace(/\s+/g, '-');
-  // }
-
-
   const formatTitle = (title) => {
     if (!title) return '';
     return title.trim().replace(/\s+/g, '-');
   }
 
-
-  
   useEffect(() => {
     products(50);
   }, []);
@@ -58,20 +52,18 @@ export default function Home() {
               <div className="top-3-grids">
                 <div className="product-area">
                   {productList &&
-                    productList?.splice(0, 8)?.map((data) => {
-                      const productId = data?.id;
-                     // console.log("productId", data);
+                    productList?.slice(0, 8)?.map((index) => {
+                      const productId = index?.id;
                       return (
                         <div className="grid_1_of_3 images_1_of_3">
                           <Link
-                            to={`/singleProductPage/${productId}/${formatTitle(data.title)}`}
+                            to={`/singleProductPage/${formatTitle(index.title)}/${productId}`}
                           >
-                            
-                            <img src={data?.images[0]} />
-                            <div className="grid_1_of_3_details h-auto p-0">
-                            <h3>{data?.title}</h3>
-                              <h3>$  {data?.price}</h3>
-                              <p className="card-desc">{data?.description}</p>
+                              <img src={index?.images[0]} />
+                              <div className="grid_1_of_3_details h-auto p-0">
+                              <h3>{index?.id} {index?.title}</h3>
+                              <h3>$  {index?.price}</h3>
+                              <p className="card-desc">{index?.description}</p>
                             </div>
                           </Link>
                         </div>
@@ -84,17 +76,18 @@ export default function Home() {
                 <h4 className="p-0 m-0">Deals of the day</h4>
                 <div className="product-area">
                   {productList &&
-                    productList?.splice(8, 8)?.map((data, index) => {
+                    productList?.slice(8, 16)?.map((data) => {
                       const productId = data?.id;
                       //console.log("productId", index, data);
                       return (
-                        <div className="grid_1_of_4 images_1_of_4 products-info">
+                        <div className="grid_1_of_4 images_1_of_3 products-info">
                           <Link
                              to={`/singleProductPage/${productId}`}
                           >
                             <img src={data?.images[0]} />
-                            <p className="card-desc">{data?.description}</p>
+                            <h3>{data?.id} {data?.title}</h3>
                             <h3>$ {data?.price}</h3>
+                            <p className="card-desc">{data?.description}</p>
                           </Link>
                         </div>
                       );

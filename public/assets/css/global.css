@@ -177,7 +177,33 @@ img {
 .display-block {
     display: block;
 }
-    
+.carousel .slide {
+    border: 2px solid #dfdfdf;
+    border-radius: 0.5rem;
+} 
+.carousel .slide img {
+    height: 100%;
+    max-height: 540px;
+    object-fit: contain;
+    border: 2px solid #dfdfdf;
+}
+.carousel .thumbs-wrapper {
+    margin: 20px 0 !important;
+}
+.carousel .thumb img {
+    height: 100%;
+    max-height: 70px !important;
+    object-fit: contain;
+}
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border: 2px solid #5a5a5a !important;
+}
+.carousel .thumb {
+    border: 2px solid #dfdfdf !important;
+    border-radius: 0.5rem;
+}
+
 /*end reset*/
 body {
     background: #f9f9f9;
