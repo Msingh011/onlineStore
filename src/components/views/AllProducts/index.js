@@ -113,13 +113,13 @@ export default function AllProducts() {
               productCategory.sort().map((categories) => {
                 return (
                   <p
-                    key={categories}
+                    key={categories?.name}
                     onClick={() => {
-                      handleSelectCataegory(categories);
+                      handleSelectCataegory(categories?.slug);
                     }}
                     className="capitalize font-medium tracking-wide cursor-pointer"
                   >
-                    {categories}
+                    {categories?.name}
                   </p>
                 );
               })}
@@ -163,10 +163,6 @@ export default function AllProducts() {
             </div>
 
             <div className="product-area mb-3">
-
-         
-
-
               {currentItems &&
                 currentItems?.map((index) => {
                   const productId = index?.id;
@@ -187,7 +183,6 @@ export default function AllProducts() {
             </div>
 
             {productList?.length >= 12 && 
-
             <ReactPaginate
               nextLabel="next >"
               onPageChange={handlePageClick}
@@ -209,7 +204,6 @@ export default function AllProducts() {
               renderOnZeroPageCount={null}
             />
           }
-
           </div>
         </div>
       </div>

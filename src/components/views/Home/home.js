@@ -82,7 +82,7 @@ export default function Home() {
                       return (
                         <div className="grid_1_of_4 images_1_of_3 products-info">
                           <Link
-                             to={`/singleProductPage/${productId}`}
+                             to={`/singleProductPage/${formatTitle(data.title)}/${productId}`}
                           >
                             <img src={data?.images[0]} />
                             <h3>{data?.id} {data?.title}</h3>

@@ -3,7 +3,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './components/views/Home/home';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Store from './components/views/Store';
 import AllProducts from './components/views/AllProducts';
 import Contact from './components/views/Contact';
 import SingleProductPage from './components/views/SingleProduct';

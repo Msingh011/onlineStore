@@ -2,12 +2,12 @@ import media from "../media";
 
 export const sliderContent = [
     {  
-        image: media.sliderone,
+        image: media.slide,
     },
-    {
-        image: media.slidertwo,
-    },
-    {
-        image: media.sliderthree,
-    }
+    // {
+    //     image: media.slidertwo,
+    // },
+    // {
+    //     image: media.sliderthree,
+    // }
 ] 

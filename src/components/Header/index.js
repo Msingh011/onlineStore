@@ -6,9 +6,6 @@ export default function Header() {
 
 	// const topMenu = ['Login', 'Signup'];
 	const mainMenu = ['home', 'allProducts', 'contact'];
-
-	
-	// const mainMenu = ['home', 'store', 'allProducts', 'contact'];
 	return (
 		<>
 			{/* <div className="wrap p-3">
